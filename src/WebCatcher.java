@@ -15,7 +15,7 @@ public class WebCatcher {
 	 * @param url the url to patch, such as http://www.shicimingju.com/1368.html
 	 * @return list of the poems
 	 */
-	public static List<String> CatchPoem(URL url){
+	public static List<String> getPoem(URL url){
 		BufferedReader reader = null;
 		List<String> list = new ArrayList<String>();
 		

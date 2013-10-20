@@ -6,7 +6,7 @@ import java.util.List;
 public class Test {
 	public static void main(String[] args) {
 		try {
-			List<String> list = WebCatcher.CatchPoem(new URL("http://www.shicimingju.com/1368.html"));
+			List<String> list = WebCatcher.getPoem(new URL("http://www.shicimingju.com/1368.html"));
 			for (String e : list) {
 				System.out.println(e);
 			}
