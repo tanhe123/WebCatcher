@@ -63,7 +63,7 @@ public class WebCatcher {
 		Pattern pattern = Pattern.compile(poemRegex);
 		Matcher mat = pattern.matcher(content);
 		while (mat.find()) {
-			list.add(mat.group(1));
+			list.add(mat.group(1).trim());
 		}
 		
 		return list;

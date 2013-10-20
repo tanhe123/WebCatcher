@@ -9,7 +9,8 @@ public class Test {
 			String s = WebCatcher.getContent(new URL("http://www.shicimingju.com/1368.html"));
 			System.out.println(s);
 			
-			List<String> list = WebCatcher.getPoem(new URL("http://www.shicimingju.com/1368.html"));
+			//List<String> list = WebCatcher.getPoem(new URL("http://www.shicimingju.com/1368.html"));
+			List<String> list = WebCatcher.getPoem(new URL("http://www.shicimingju.com/448.html"));
 			for (String e : list) {
 				System.out.println(e);
 			}
