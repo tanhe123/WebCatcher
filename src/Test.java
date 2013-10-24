@@ -13,24 +13,25 @@ public class Test {
 		try {
 			String strUrl = "http://www.shicimingju.com/baidu/list/3733.html";
 			String strUrl1 = "http://www.shicimingju.com/1368.html";
+			String str = "http://www.shicimingju.com/baidu/list/35383.html";
 			//获取内容
-			List<String> list = WebCatcher.getPoem(new URL(strUrl1));
+			List<String> list = WebCatcher.getCi(new URL(strUrl));
 			StringBuilder content = new StringBuilder();
 			for (String e : list) {
 				content.append(e + "\n");
 			}
 			System.out.println(content);
+			
 			//存入数据库
 			MySql sql = new MySql(MySql.myurl, "root", "622");
 			sql.Connect();
-			//sql.execute("select * from data");
 			sql.execute("insert into data(content) values(\""+content+"\");");
-			
+			System.out.println("haha");
 			ResultSet rs = sql.executeQuery("select * from data");
 			while(rs.next()) {
 				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
 			}
-			
+			sql.release();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -38,24 +39,5 @@ public class Test {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-	}
-	
-	public static void test() throws SQLException, ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
-		//DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydata", "root", "622");
-
-		Statement st = conn.createStatement();
-		
-		st.execute("insert into data(content) values(\"tan\");");
-		ResultSet rs = st.executeQuery("select * from data");
-		
-		while(rs.next()) {
-			System.out.println(rs.getObject(1) + "\t" + rs.getObject(4) + "\t");
-		}
-		
-		rs.close();
-		st.close();
-		conn.close();
 	}
 }
