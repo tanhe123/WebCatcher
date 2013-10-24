@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,7 +61,7 @@ public class WebCatcher {
 	public static List<String> getPoem(String content) {
 		List<String> list = new ArrayList<String>();
 		
-		Pattern pattern = Pattern.compile(poemRegex);
+		Pattern pattern = Pattern.compile(poemRegex, Pattern.CASE_INSENSITIVE);
 		Matcher mat = pattern.matcher(content);
 		while (mat.find()) {
 			list.add(mat.group(1).trim());
@@ -69,5 +70,15 @@ public class WebCatcher {
 		return list;
 	}
 	
+	/**
+	 * get the urls which a page contains, then put into the queue.
+	 * @param url
+	 */
+	public static void getURL(BlockingQueue<String> queue, URL url) {
+		
+	}
+	
 	public static final String poemRegex = "<p style=\\\"text-align: center;\">(.*?)</p>";
+	public static final String poemRegexEx = "<p style=\\\"text-align: center;\">([\\u4e00-\\u9fa5]*?)</p>";
+	public static final String oneWordRegex = "[\\u4e00-\\u9fa5]";
 }
