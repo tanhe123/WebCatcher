@@ -13,21 +13,30 @@ public class Test {
 		try {
 			String strUrl = "http://www.shicimingju.com/baidu/list/3733.html";
 			String strUrl1 = "http://www.shicimingju.com/1368.html";
-			
+			//获取内容
 			List<String> list = WebCatcher.getPoem(new URL(strUrl1));
+			StringBuilder content = new StringBuilder();
 			for (String e : list) {
-				System.out.println(e);
+				content.append(e + "\n");
 			}
+			System.out.println(content);
+			//存入数据库
+			MySql sql = new MySql(MySql.myurl, "root", "622");
+			sql.Connect();
+			//sql.execute("select * from data");
+			sql.execute("insert into data(content) values(\""+content+"\");");
+			
+			ResultSet rs = sql.executeQuery("select * from data");
+			while(rs.next()) {
+				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
+			}
+			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		try {
-			Test.test();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 	}
 	
@@ -43,7 +52,6 @@ public class Test {
 		
 		while(rs.next()) {
 			System.out.println(rs.getObject(1) + "\t" + rs.getObject(4) + "\t");
-		
 		}
 		
 		rs.close();

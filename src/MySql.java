@@ -48,4 +48,6 @@ public class MySql {
 	private Statement st; //statement
 	private String user;
 	private String password;
+	
+	public static final String myurl = "jdbc:mysql://localhost:3306/mydata?useUnicode=true&characterEncoding=utf8";
 }
