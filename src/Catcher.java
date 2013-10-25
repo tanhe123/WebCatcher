@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Catcher {
 	public static void main(String[] args) {
@@ -19,76 +21,36 @@ public class Catcher {
 		list.add(strUrl1);
 		list.add(str);
 		
+		/*
 		Catcher test = new Catcher();
 		for (String e : list) {
 			test.CatchCi(e);
 			test.CatchPoem(e);	
-		}
-	}
-	
-	public void CatchCi(String url) {
-		try {
-			//获取内容
-			List<String> list = WebCatcher.getCi(new URL(url));
-			// 未检索到内容
-			if (list.size() == 0) {
-				System.out.println("未检索到内容");
-				return ;
+		}*/
+		
+	/*	try {
+			List<String> urls = WebCatcher.getURL(new URL(str));
+			for (String e : urls) {
+				System.out.println(e);
 			}
-			StringBuilder content = new StringBuilder();
-			for (String e : list) {
-				content.append(e + "\n");
-			}
-			System.out.println(content);
-			
-			//存入数据库
-			MySql sql = new MySql(MySql.myurl, "root", "622");
-			sql.Connect();
-			sql.execute("insert into data(content) values(\""+content+"\");");
-//			ResultSet rs = sql.executeQuery("select * from data");
-//			while(rs.next()) {
-//				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
-//			}
-			sql.release();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+		/*Set<String> set = new HashSet<String>();
+		set.add("haha");
+		set.add("hehe");
+		System.out.println(set.contains("haha"));*/
+
+	/*	try {
+			URL url = new URL("http://www.baidu.com");
+			System.out.println(url.toString());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-	}
-	
-	public void CatchPoem(String url) {
-		try {
-			//获取内容
-			List<String> list = WebCatcher.getPoem(new URL(url));
-			// 未检索到内容
-			if (list.size() == 0) {
-				System.out.println("未检索到内容");
-				return ;
-			}
-			StringBuilder content = new StringBuilder();
-			for (String e : list) {
-				content.append(e + "\n");
-			}
-			System.out.println(content);
-			
-			//存入数据库
-			MySql sql = new MySql(MySql.myurl, "root", "622");
-			sql.Connect();
-			sql.execute("insert into data(content) values(\""+content+"\");");
-//			ResultSet rs = sql.executeQuery("select * from data");
-//			while(rs.next()) {
-//				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
-//			}
-			sql.release();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		}*/
+		
+		new Thread(new SearchTask("http://www.shicimingju.com/")).start();
 	}
 }

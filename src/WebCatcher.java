@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.jws.Oneway;
-
 
 public class WebCatcher {
 	/**
@@ -70,6 +68,27 @@ public class WebCatcher {
 		List<String> list = new ArrayList<String>();
 		
 		Matcher mat = getMatcher(content, poemRegex);
+	
+		while (mat.find()) {
+			list.add(mat.group(1).trim());
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * get the urls which a page contains, then put into the queue.
+	 * @param url
+	 */
+	public static List<String> getURL(URL url) throws IOException{
+		String content = getContent(url);
+		return getURL(content);
+	}
+	
+	public static List<String> getURL(String content) {
+		List<String> list = new ArrayList<String>();
+		
+		Matcher mat = getMatcher(content, urlRegex);
 		
 		while (mat.find()) {
 			list.add(mat.group(1).trim());
@@ -77,7 +96,7 @@ public class WebCatcher {
 		
 		return list;
 	}
-			
+	
 	/**
 	 * using ciRegex to match the content of the url
 	 * @param url the url to patch, such as http://www.shicimingju.com/baidu/list/35383.html
@@ -113,5 +132,6 @@ public class WebCatcher {
 	public static final String poemRegex = "<p style=\\\"text-align: center;\">(.*?)</p>";
 	public static final String poemRegexEx = "<p style=\\\"text-align: center;\">([\\u4e00-\\u9fa5]*?)</p>";
 	public static final String ciRegex = "<h3>《(.*?)》</h3>(.*?)<br><h3>作品赏析</h3>";
+	public static final String urlRegex = "href=\"(http://www.shicimingju.com/.*?)\"";
 	public static final String oneWordRegex = "[\\u4e00-\\u9fa5]";
 }
