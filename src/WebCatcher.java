@@ -55,6 +55,12 @@ public class WebCatcher {
 		return getPoem(content);
 	}
 	
+	public static Matcher getMatcher(String content, String regex) {
+		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(content);
+		return matcher;
+	}
+	
 	/**
 	 * using poemRegex to match the content
 	 * @param content content
@@ -63,8 +69,7 @@ public class WebCatcher {
 	public static List<String> getPoem(String content) {
 		List<String> list = new ArrayList<String>();
 		
-		Pattern pattern = Pattern.compile(poemRegex, Pattern.CASE_INSENSITIVE);
-		Matcher mat = pattern.matcher(content);
+		Matcher mat = getMatcher(content, poemRegex);
 		
 		while (mat.find()) {
 			list.add(mat.group(1).trim());
@@ -72,8 +77,7 @@ public class WebCatcher {
 		
 		return list;
 	}
-	
-	
+			
 	/**
 	 * using ciRegex to match the content of the url
 	 * @param url the url to patch, such as http://www.shicimingju.com/baidu/list/35383.html
@@ -93,8 +97,7 @@ public class WebCatcher {
 	public static List<String> getCi(String content) {
 		List<String> list = new ArrayList<String>();
 		
-		Pattern pattern = Pattern.compile(ciRegex, Pattern.CASE_INSENSITIVE);
-		Matcher mat = pattern.matcher(content);
+		Matcher mat = getMatcher(content, ciRegex);
 		
 		while (mat.find()) {
 			list.add(mat.group(1).trim());
@@ -105,14 +108,6 @@ public class WebCatcher {
 		}
 		
 		return list;
-	}
-	
-	/**
-	 * get the urls which a page contains, then put into the queue.
-	 * @param url
-	 */
-	public static void getURL(BlockingQueue<String> queue, URL url) {
-		
 	}
 	
 	public static final String poemRegex = "<p style=\\\"text-align: center;\">(.*?)</p>";

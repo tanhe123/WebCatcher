@@ -78,10 +78,10 @@ public class Catcher {
 			MySql sql = new MySql(MySql.myurl, "root", "622");
 			sql.Connect();
 			sql.execute("insert into data(content) values(\""+content+"\");");
-			ResultSet rs = sql.executeQuery("select * from data");
-			while(rs.next()) {
-				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
-			}
+//			ResultSet rs = sql.executeQuery("select * from data");
+//			while(rs.next()) {
+//				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
+//			}
 			sql.release();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
