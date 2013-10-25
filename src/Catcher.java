@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class Catcher {
 	public static void main(String[] args) {
 		String strUrl = "http://www.shicimingju.com/baidu/list/3733.html";
 		String strUrl1 = "http://www.shicimingju.com/1368.html";
@@ -19,7 +19,7 @@ public class Test {
 		list.add(strUrl1);
 		list.add(str);
 		
-		Test test = new Test();
+		Catcher test = new Catcher();
 		for (String e : list) {
 			test.CatchCi(e);
 			test.CatchPoem(e);	
