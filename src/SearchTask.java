@@ -91,7 +91,7 @@ public class SearchTask implements Runnable{
 			System.out.println(contents);
 			
 			//存入数据库
-			MySql sql = new MySql(MySql.myurl, "root", "622");
+			MySql sql = new MySql(MySql.myurl, "root", "");
 			sql.Connect();
 			sql.execute("insert into data(name,content) values(\""+name+"\"" +
 					",\"" + contents+"\");");
@@ -124,7 +124,7 @@ public class SearchTask implements Runnable{
 			System.out.println(contents);
 			
 			//存入数据库
-			MySql sql = new MySql(MySql.myurl, "root", "622");
+			MySql sql = new MySql(MySql.myurl, "root", "");
 			sql.Connect();
 
 			sql.execute("insert into data(name,content) values(\""+name+"\"" +
