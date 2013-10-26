@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class Catcher {
 	public static void main(String[] args) {
@@ -51,6 +53,14 @@ public class Catcher {
 			e.printStackTrace();
 		}*/
 		
-		new Thread(new SearchTask(strUrl)).start();
+		BlockingQueue<String> queue = new ArrayBlockingQueue<>(100000);
+		for (int i=0; i<10; i++) {
+			new Thread(new SearchTask(queue, strUrl)).start();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

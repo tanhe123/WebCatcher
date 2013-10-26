@@ -17,7 +17,8 @@ public class SearchTask implements Runnable{
 	 * constructs a SearchTask
 	 * @param startUrl the start url to search
 	 */
-	public SearchTask(String startUrl) {
+	public SearchTask(BlockingQueue<String> queue, String startUrl) {
+		urlQueue = queue;
 		this.startUrl = startUrl;
 	}
 	
@@ -28,36 +29,47 @@ public class SearchTask implements Runnable{
 	public void search(String url) {
 		System.out.println("正在检索的网页:" + url);
 		try {
-			String content = WebCatcher.getContent(new URL(url));
-			
-			// 将该url记入已访问集中
-			urlSet.add(content);
-			
-			// 获取url里面的词
-			this.catchCi(content);
-			
-			// 获取url里面的诗
-			this.catchPoem(content);
-			
-			// 获取url里面的其它诗的链接列表
-			List<String> urls = WebCatcher.getURL(content);
-			for (String e : urls) {
-				if (urlSet.contains(e)) continue;
-				else {
-					urlQueue.offer(e);
-					urlSet.add(e);
+			if (!urlSet.contains(url)) {
+				urlSet.add(url);
+				
+				String content = WebCatcher.getContent(new URL(url));
+				
+				// 将该url记入已访问集中
+				urlSet.add(content);
+				
+				// 获取url里面的词
+				this.catchCi(content);
+				
+				// 获取url里面的诗
+				this.catchPoem(content);
+				
+				// 获取url里面的其它诗的链接列表
+				List<String> urls = WebCatcher.getURL(content);
+				for (String e : urls) {
+					if (urlSet.contains(e)) continue;
+					else {
+						urlQueue.put(e);
+				//		urlSet.add(e);
+					}
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		System.out.println(urlQueue.size());
 		
 		// 从urlQueue中取元素递归遍历
 		if (urlQueue.size() > 0) {
-			String nurl = urlQueue.poll();
-			search(nurl);
+			try {
+				String nurl = urlQueue.take();
+				search(nurl);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -127,7 +139,7 @@ public class SearchTask implements Runnable{
 		}
 	}
 	
-	Set<String> urlSet = new HashSet<String>();
-	private Queue<String> urlQueue = new LinkedList<String>();
+	private static Set<String> urlSet = new HashSet<String>();
+	private BlockingQueue<String> urlQueue;
 	private String startUrl;
 }
