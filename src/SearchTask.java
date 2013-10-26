@@ -2,12 +2,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.BlockingQueue;
 
 public class SearchTask implements Runnable{
@@ -68,6 +70,8 @@ public class SearchTask implements Runnable{
 				System.out.println("在该网页中未检索到词");
 				return ;
 			}
+			
+			String name = list.get(0);
 			StringBuilder contents = new StringBuilder();
 			for (String e : list) {
 				contents.append(e + "\n");
@@ -77,8 +81,9 @@ public class SearchTask implements Runnable{
 			//存入数据库
 			MySql sql = new MySql(MySql.myurl, "root", "622");
 			sql.Connect();
-			sql.execute("insert into data(content) values(\""+contents+"\");");
-//			ResultSet rs = sql.executeQuery("select * from data");
+			sql.execute("insert into data(name,content) values(\""+name+"\"" +
+					",\"" + contents+"\");");
+		//	ResultSet rs = sql.executeQuery("select * from data");
 //			while(rs.next()) {
 //				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
 //			}
@@ -97,7 +102,10 @@ public class SearchTask implements Runnable{
 				System.out.println("在该网页中未检索到诗");
 				return ;
 			}
+			
+			String name = list.get(0);
 			StringBuilder contents = new StringBuilder();
+			
 			for (String e : list) {
 				contents.append(e + "\n");
 			}
@@ -106,7 +114,9 @@ public class SearchTask implements Runnable{
 			//存入数据库
 			MySql sql = new MySql(MySql.myurl, "root", "622");
 			sql.Connect();
-			sql.execute("insert into data(content) values(\""+contents+"\");");
+
+			sql.execute("insert into data(name,content) values(\""+name+"\"" +
+					",\"" + contents+"\");");
 //			ResultSet rs = sql.executeQuery("select * from data");
 //			while(rs.next()) {
 //				System.out.println(rs.getObject(1) + " " + rs.getObject(4));
