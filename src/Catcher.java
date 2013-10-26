@@ -53,8 +53,8 @@ public class Catcher {
 			e.printStackTrace();
 		}*/
 		
-		BlockingQueue<String> queue = new ArrayBlockingQueue<>(100000);
-		for (int i=0; i<10; i++) {
+		BlockingQueue<String> queue = new ArrayBlockingQueue<>(1000000);
+		for (int i=0; i<100; i++) {
 			new Thread(new SearchTask(queue, strUrl)).start();
 			try {
 				Thread.sleep(1000);
