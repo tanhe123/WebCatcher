@@ -13,13 +13,13 @@ import java.util.Set;
 
 public class Catcher {
 	public static void main(String[] args) {
-		String strUrl = "http://www.shicimingju.com/baidu/list/3733.html";
+	/*	String strUrl = "http://www.shicimingju.com/baidu/list/3733.html";
 		String strUrl1 = "http://www.shicimingju.com/1368.html";
 		String str = "http://www.shicimingju.com/baidu/list/35383.html";
 		List<String> list = new ArrayList<String>();
 		list.add(strUrl);
 		list.add(strUrl1);
-		list.add(str);
+		list.add(str);*/
 		
 		/*
 		Catcher test = new Catcher();
@@ -51,6 +51,6 @@ public class Catcher {
 			e.printStackTrace();
 		}*/
 		
-		new Thread(new SearchTask("http://www.shicimingju.com/")).start();
+		new Thread(new SearchTask("http://www.shicimingju.com/505.html")).start();
 	}
 }
