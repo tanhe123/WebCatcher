@@ -51,7 +51,10 @@ public class Catcher {
 			e.printStackTrace();
 		}*/
 		
-
+<<<<<<< HEAD
+		new Thread(new SearchTask("http://www.shicimingju.com/505.html")).start();
+=======
 		new Thread(new SearchTask(strUrl)).start();
+>>>>>>> 2c584224675331905c01cfd59e31f65ef3f73ba5
 	}
 }
